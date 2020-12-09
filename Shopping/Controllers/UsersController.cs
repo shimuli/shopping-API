@@ -13,9 +13,10 @@ namespace Shopping.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class UsersController : Controller
     {
-        private IUserRepo userRepo;
+        private readonly IUserRepo userRepo;
         private readonly IMapper mapper;
 
         public UsersController(IUserRepo _userRepo, IMapper _mapper)
@@ -23,7 +24,13 @@ namespace Shopping.Controllers
             userRepo = _userRepo;
             mapper = _mapper;
         }
+
+        /// <summary>
+        /// Get List of all users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200, Type=typeof(List<UsersDto>))]
         public IActionResult GetAllUsers()
         {
             var objList = userRepo.GetUsers();
@@ -35,8 +42,17 @@ namespace Shopping.Controllers
             return Ok(objDto);
         }
 
-        [HttpGet("{userId:int}")]
-        public IActionResult GetInventory(int userId)
+        /// <summary>
+        /// Get One User 
+        /// </summary>
+        /// <param name="userId"> The User Id</param>
+        /// <returns></returns>
+        
+        [HttpGet("{userId:int}", Name = "GetUser")]
+        [ProducesResponseType(200, Type = typeof(UsersDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetUser(int userId)
         {
             var obj = userRepo.GetUser(userId);
             if (obj == null)
@@ -48,7 +64,16 @@ namespace Shopping.Controllers
             return Ok(objDto);
         }
 
+        /// <summary>
+        /// Create a new User
+        /// </summary>
+        /// <param name="postusersDto"> Quired body</param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(201, Type = typeof(UsersDto))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        [ProducesDefaultResponseType]
         public IActionResult CreateUser([FromBody] PostUserDto postusersDto)
         {
             if (postusersDto == null)
@@ -60,18 +85,72 @@ namespace Shopping.Controllers
                 ModelState.AddModelError("", "User Exits!");
                 return StatusCode(404, ModelState);
             }
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            }*/
             var userObj = mapper.Map<User>(postusersDto);
 
             if (!userRepo.CreateUser(userObj))
             {
-                ModelState.AddModelError("", $"Something went wrong while saving the reord{userObj.Name}");
+                ModelState.AddModelError("", $"Something went wrong while saving the record {userObj.Name}");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return CreatedAtRoute("GetUser", new { userId = userObj.UserId }, userObj);
+        }
+
+        /// <summary>
+        /// Update user info
+        /// </summary>
+        /// <param name="userId"> User Id</param>
+        /// <param name="userDto">Parameter to change</param>
+        /// <returns></returns>
+        [HttpPatch("{userId:int}", Name = "UpdateUser")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        [ProducesDefaultResponseType]
+        public IActionResult UpdateUser(int userId, [FromBody] UsersDto userDto)
+        {
+            if (userDto == null || userId != userDto.UserId)
+            {
+                return BadRequest(ModelState);
+            }
+            var userObj = mapper.Map<User>(userDto);
+            if (!userRepo.UpdateUser(userObj))
+            {
+                ModelState.AddModelError("", $"Something went wrong while updating the record {userObj.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+
+        }
+
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="userId"> User Id</param>
+        /// <returns></returns>
+        [HttpDelete("{userId:int}", Name = "DeleteUser")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesDefaultResponseType]
+        public IActionResult DeleteUser(int userId)
+        {
+            if (!userRepo.UserExist(userId))
+            {
+                return NotFound();
+            }
+            var userObj = userRepo.GetUser(userId);
+            if (!userRepo.DeleteUser(userObj))
+            {
+                ModelState.AddModelError("", $"Something went wrong while deleting the record {userObj.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+
         }
 
 

@@ -16,6 +16,8 @@ using AutoMapper;
 using Shopping.Mapper;
 using Shopping.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using System.IO;
 
 namespace Shopping
 {
@@ -36,7 +38,32 @@ namespace Shopping
 
             services.AddScoped<IInventoryRepo, InventoryRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IShoppingRepo, ShopingRepo>();
             services.AddAutoMapper(typeof(ShoppingMappings));
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("ShoppingAPI",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "Shopping API",
+                        Version = "1",
+                        Description = "Shopping App Web API",
+                        Contact= new Microsoft.OpenApi.Models.OpenApiContact()
+                        {
+                            Email = "shimulicedric@gmail.com",
+                            Name= "Shimuli Cedric",
+                            Url = new Uri("https://github.com/shimuli/shopping-API")
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                        {
+                            Name = "MIT Licence",
+                            Url = new Uri("https://opensource.org/licenses/MIT")
+                        }
+                      
+                    });
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var cmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentFullPath);
+            });
             services.AddControllers();
         }
 
@@ -49,6 +76,13 @@ namespace Shopping
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options=> {
+                options.SwaggerEndpoint("/swagger/ShoppingAPI/swagger.json", "Shopping API");
+                options.RoutePrefix = "";
+                });
 
             app.UseRouting();
 

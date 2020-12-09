@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Shopping</name>
+    </assembly>
+    <members>
+        <member name="M:Shopping.Controllers.InventoryController.GetInventories">
+            <summary>
+            Get all Items in the inventory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.GetInventory(System.Int32)">
+            <summary>
+            Get item by Id
+            </summary>
+            <param name="inventoryId"> The item Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.GetInventoryByName(System.String)">
+            <summary>
+            Get Item by Name
+            </summary>
+            <param name="name">Item Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.GetInventoryByNameandId(System.Int32,System.String)">
+            <summary>
+            Get Item by ID and Name
+            </summary>
+            <param name="productId"> Item Id</param>
+            <param name="name">Item Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.GetInventoryBydate(System.Int32,System.Nullable{System.DateTime},System.DateTime)">
+            <summary>
+            Filter Items by Date and User Id
+            </summary>
+            <param name="userId">User Id</param>
+            <param name="startdate">Start Date Format- 2020-12-21</param>
+            <param name="enddate">End Date Format- 2020-12-21</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.CreateInventory(Shopping.Models.DTOs.PostInventoryDto)">
+            <summary>
+            Add an Item
+            </summary>
+            <param name="inventoryDto"> Boyd of new Item</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.UpdateInventory(System.Int32,Shopping.Models.DTOs.InventoryDto)">
+            <summary>
+            Update an item
+            </summary>
+            <param name="inventoryId"> Id of item</param>
+            <param name="inventoryDto">object to update</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.InventoryController.DeleteInventory(System.Int32,System.String)">
+            <summary>
+            Delete an item by name and ID
+            </summary>
+            <param name="inventoryId">Id of the item</param>
+            <param name="name">Name of the Item</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.GetShopings">
+            <summary>
+            Get All shoping data in a list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.GetShoping(System.Int32)">
+            <summary>
+            Get item based on item Id
+            </summary>
+            <param name="itemId"> item Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.GetShopingByName(System.String)">
+            <summary>
+            Get Item by name
+            </summary>
+            <param name="item"> Item Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.GetShopingbyNameandId(System.Int32,System.String)">
+            <summary>
+            Get item by Id and Name
+            </summary>
+            <param name="itemId"> Id of the item</param>
+            <param name="name">Name of the item</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.GetShopingbyDate(System.Int32,System.Nullable{System.DateTime},System.DateTime)">
+            <summary>
+            Filter Data by Date and Id
+            </summary>
+            <param name="userId">Id of User</param>
+            <param name="startdate">Start date Format: 2020-12-21</param>
+            <param name="enddate">End date Format: 2020-12-21</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.CreateInventory(Shopping.Models.DTOs.PostShopingDto)">
+            <summary>
+            Create new Item
+            </summary>
+            <param name="postShopingDto"> Dta body</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.UpdateItem(System.Int32,Shopping.Models.DTOs.ShopingDto)">
+            <summary>
+            Update An Item
+            </summary>
+            <param name="itemId">Item Id</param>
+            <param name="shopingDto">Body to Update</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.DeleteItem(System.Int32,System.String)">
+            <summary>
+            Delete Item from Shoping List
+            </summary>
+            <param name="itemId">Item Id</param>
+            <param name="name">Item Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.UsersController.GetAllUsers">
+            <summary>
+            Get List of all users
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.UsersController.GetUser(System.Int32)">
+            <summary>
+            Get One User 
+            </summary>
+            <param name="userId"> The User Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.UsersController.CreateUser(Shopping.Models.DTOs.PostUserDto)">
+            <summary>
+            Create a new User
+            </summary>
+            <param name="postusersDto"> Quired body</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.UsersController.UpdateUser(System.Int32,Shopping.Models.DTOs.UsersDto)">
+            <summary>
+            Update user info
+            </summary>
+            <param name="userId"> User Id</param>
+            <param name="userDto">Parameter to change</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.UsersController.DeleteUser(System.Int32)">
+            <summary>
+            Delete user
+            </summary>
+            <param name="userId"> User Id</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

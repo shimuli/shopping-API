@@ -19,7 +19,7 @@ namespace Shopping.Models
 
         public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<InventoryList> InventoryLists { get; set; }
-        public virtual DbSet<Shopping> Shoppings { get; set; }
+        public virtual DbSet<Shoping> Shopings { get; set; }
         public virtual DbSet<ShoppingList> ShoppingLists { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -102,12 +102,12 @@ namespace Shopping.Models
                 entity.Property(e => e.UserId).HasColumnName("User_id");
             });
 
-            modelBuilder.Entity<Shopping>(entity =>
+            modelBuilder.Entity<Shoping>(entity =>
             {
                 entity.HasKey(e => e.ItemId)
-                    .HasName("PK__Shopping__3FB403AC303ABCFE");
+                    .HasName("PK__Shoping__3FB403AC23F26C24");
 
-                entity.ToTable("Shopping");
+                entity.ToTable("Shoping");
 
                 entity.Property(e => e.ItemId).HasColumnName("Item_id");
 
@@ -133,7 +133,7 @@ namespace Shopping.Models
                 entity.Property(e => e.UserId).HasColumnName("User_id");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Shoppings)
+                    .WithMany(p => p.Shopings)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Shopping_ToUserTable");

@@ -12,11 +12,16 @@ namespace Shopping.Mapper
     {
         public ShoppingMappings()
         {
-            CreateMap<Inventory, InventoryDto>().ReverseMap();
             CreateMap<User, UsersDto>().ReverseMap();
             CreateMap<User, PostUserDto>().ReverseMap();
+
+            CreateMap<Inventory, InventoryDto>().ReverseMap();
             CreateMap<Inventory, PostInventoryDto>().ReverseMap();
             CreateMap<InventoryList, GetInventoryDto>().ReverseMap();
+
+            CreateMap<Shoping, PostShopingDto>().ReverseMap();
+            CreateMap<Shoping, ShopingDto>().ReverseMap();
+            CreateMap<ShoppingList, GetShopingDto>().ReverseMap();
         }
     }
 }

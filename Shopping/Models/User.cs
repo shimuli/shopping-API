@@ -10,7 +10,7 @@ namespace Shopping.Models
         public User()
         {
             Inventories = new HashSet<Inventory>();
-            Shoppings = new HashSet<Shopping>();
+            Shopings = new HashSet<Shoping>();
         }
 
         public int UserId { get; set; }
@@ -20,6 +20,6 @@ namespace Shopping.Models
         public bool IsConfirmed { get; set; }
 
         public virtual ICollection<Inventory> Inventories { get; set; }
-        public virtual ICollection<Shopping> Shoppings { get; set; }
+        public virtual ICollection<Shoping> Shopings { get; set; }
     }
 }
