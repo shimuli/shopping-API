@@ -10,6 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shopping.Repo;
+using Shopping.Repo.IRepo;
+using AutoMapper;
+using Shopping.Mapper;
+using Shopping.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shopping
 {
@@ -25,6 +31,12 @@ namespace Shopping
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MyShoppingDBContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("MyShoppingDB")));
+
+            services.AddScoped<IInventoryRepo, InventoryRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddAutoMapper(typeof(ShoppingMappings));
             services.AddControllers();
         }
 
