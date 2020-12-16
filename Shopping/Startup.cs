@@ -18,6 +18,9 @@ using Shopping.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shopping
 {
@@ -40,7 +43,16 @@ namespace Shopping
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IShoppingRepo, ShopingRepo>();
             services.AddAutoMapper(typeof(ShoppingMappings));
-            services.AddSwaggerGen(options => {
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddSwaggerGen();
+         /*   services.AddSwaggerGen(options => {
                 options.SwaggerDoc("ShoppingAPI",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
@@ -63,12 +75,12 @@ namespace Shopping
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentFullPath);
-            });
+            });*/
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -78,11 +90,20 @@ namespace Shopping
             app.UseHttpsRedirection();
 
             app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                foreach (var desc in provider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json",
+                        desc.GroupName.ToUpperInvariant());
+                }
+                options.RoutePrefix = "";
+            });
 
-            app.UseSwaggerUI(options=> {
+            /*app.UseSwaggerUI(options=> {
                 options.SwaggerEndpoint("/swagger/ShoppingAPI/swagger.json", "Shopping API");
                 options.RoutePrefix = "";
-                });
+                });*/
 
             app.UseRouting();
 

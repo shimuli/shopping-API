@@ -74,6 +74,9 @@ namespace Shopping.Repo
             return database.Inventories.Any(a => a.InventoryId == itemId);
         }
 
-        
+        public Inventory GetInventoryData(int inventoryId)
+        {
+            return database.Inventories.FirstOrDefault(a => a.InventoryId == inventoryId);
+        }
     }
 }

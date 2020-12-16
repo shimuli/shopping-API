@@ -10,6 +10,7 @@ namespace Shopping.Repo.IRepo
     {
         ICollection<InventoryList> GetInventorys();
         InventoryList GetInventory(int inventoryId);
+        Inventory GetInventoryData(int inventoryId);
         Inventory GetInventorybyNameandId(int inventoryId, string name);
         ICollection<Inventory> GetInventorybyName(string name);
         ICollection<InventoryList> GetInventorybyDate(int userId, DateTime? startdate, DateTime? enddate);

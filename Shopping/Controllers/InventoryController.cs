@@ -11,7 +11,8 @@ using Shopping.Repo.IRepo;
 
 namespace Shopping.Controllers
 {
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/inventory")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class InventoryController : Controller
@@ -58,6 +59,27 @@ namespace Shopping.Controllers
                 return NotFound();
             }
             var objDto = mapper.Map<GetInventoryDto>(obj);
+
+            return Ok(objDto);
+        }
+
+        /// <summary>
+        /// Get Inventory by Id
+        /// </summary>
+        /// <param name="inventoryId"></param>
+        /// <returns></returns>
+        [HttpGet("getdirectinventory/{inventoryId:int}", Name = "GetInventoryData")]
+        [ProducesResponseType(200, Type = typeof(InventoryDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetInventoryData(int inventoryId)
+        {
+            var obj = inventoryRepo.GetInventoryData(inventoryId);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            var objDto = mapper.Map<InventoryDto>(obj);
 
             return Ok(objDto);
         }

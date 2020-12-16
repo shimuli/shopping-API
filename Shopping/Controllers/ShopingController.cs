@@ -11,7 +11,8 @@ using Shopping.Repo.IRepo;
 
 namespace Shopping.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/shopping")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class ShopingController : Controller

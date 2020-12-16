@@ -17,6 +17,13 @@
             <param name="inventoryId"> The item Id</param>
             <returns></returns>
         </member>
+        <member name="M:Shopping.Controllers.InventoryController.GetInventoryData(System.Int32)">
+            <summary>
+            Get Inventory by Id
+            </summary>
+            <param name="inventoryId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Shopping.Controllers.InventoryController.GetInventoryByName(System.String)">
             <summary>
             Get Item by Name
@@ -157,6 +164,12 @@
             Delete user
             </summary>
             <param name="userId"> User Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.UsersV2Controller.GetAllUsers">
+            <summary>
+            Get List of all users
+            </summary>
             <returns></returns>
         </member>
     </members>
