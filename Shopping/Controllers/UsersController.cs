@@ -15,7 +15,7 @@ namespace Shopping.Controllers
    [Route("api/v{version:apiVersion}/users")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private readonly IUserRepo userRepo;
         private readonly IMapper mapper;

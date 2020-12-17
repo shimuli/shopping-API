@@ -15,7 +15,7 @@ namespace Shopping.Controllers
     [Route("api/v{version:apiVersion}/inventory")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class InventoryController : Controller
+    public class InventoryController : ControllerBase
     {
         private readonly IInventoryRepo inventoryRepo;
         private readonly IMapper mapper;

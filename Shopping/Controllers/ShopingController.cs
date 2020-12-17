@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Models;
@@ -14,8 +15,9 @@ namespace Shopping.Controllers
     //[Route("api/[controller]")]
     [Route("api/v{version:apiVersion}/shopping")]
     [ApiController]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class ShopingController : Controller
+    public class ShopingController : ControllerBase
     {
         private readonly IShoppingRepo shoppingRepo;
         private readonly IMapper mapper;

@@ -14,7 +14,7 @@ namespace Shopping.Models.DTOs
         public int? ItemPrice { get; set; }
         public int? ItemQuantity { get; set; }
         public int? TotalBuyingPrice { get; set; }
-        public string ImageUrl { get; set; }
+        public byte[] ImageUrl { get; set; }
         public string ItemBarcode { get; set; }
         public DateTime? DateCreated { get; set; }
     }

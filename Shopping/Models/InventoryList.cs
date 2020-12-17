@@ -16,7 +16,7 @@ namespace Shopping.Models
         public int? CurrentQuantity { get; set; }
         public int? AvailableQuantity { get; set; }
         public int? TotalItemCost { get; set; }
-        public string ImageUrl { get; set; }
+        public byte[] ImageUrl { get; set; }
         public string Barcode { get; set; }
         public DateTime? Dateposted { get; set; }
         public bool? Isavailable { get; set; }

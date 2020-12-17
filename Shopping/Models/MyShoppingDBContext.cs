@@ -48,7 +48,7 @@ namespace Shopping.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.ImageUrl)
-                    .HasMaxLength(200)
+                    .HasMaxLength(1025)
                     .HasColumnName("Image_url");
 
                 entity.Property(e => e.ProductName)
@@ -84,7 +84,7 @@ namespace Shopping.Models
                 entity.Property(e => e.Dateposted).HasColumnType("datetime");
 
                 entity.Property(e => e.ImageUrl)
-                    .HasMaxLength(200)
+                    .HasMaxLength(1025)
                     .HasColumnName("Image_url");
 
                 entity.Property(e => e.Name)
@@ -105,7 +105,7 @@ namespace Shopping.Models
             modelBuilder.Entity<Shoping>(entity =>
             {
                 entity.HasKey(e => e.ItemId)
-                    .HasName("PK__Shoping__3FB403AC23F26C24");
+                    .HasName("PK__Shoping__3FB403ACE3F680DE");
 
                 entity.ToTable("Shoping");
 
@@ -115,7 +115,9 @@ namespace Shopping.Models
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.ImageUrl).HasColumnName("Image_url");
+                entity.Property(e => e.ImageUrl)
+                    .HasMaxLength(1024)
+                    .HasColumnName("Image_url");
 
                 entity.Property(e => e.ItemBarcode)
                     .HasMaxLength(50)
@@ -147,7 +149,15 @@ namespace Shopping.Models
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
-                entity.Property(e => e.ImageUrl).HasColumnName("Image_url");
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ImageUrl)
+                    .HasMaxLength(1024)
+                    .HasColumnName("Image_url");
+
+                entity.Property(e => e.IsConfirmed).HasColumnName("isConfirmed");
 
                 entity.Property(e => e.ItemBarcode)
                     .HasMaxLength(50)
@@ -164,6 +174,10 @@ namespace Shopping.Models
                 entity.Property(e => e.ItemQuantity).HasColumnName("Item_quantity");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Role)
                     .IsRequired()
                     .HasMaxLength(50);
 
@@ -187,6 +201,10 @@ namespace Shopping.Models
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Role)
                     .IsRequired()
                     .HasMaxLength(50);
             });
