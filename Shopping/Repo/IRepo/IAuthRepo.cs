@@ -1,11 +1,17 @@
-﻿using System;
+﻿using Shopping.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shopping.Repo.IRepo
 {
-    interface IAuthRepo
+    public interface IAuthRepo
     {
+        bool IsUniqueUser(string email);
+
+        User Authenticate(string email, string password);
+
+        User Register(string name, string email, string password);
     }
 }

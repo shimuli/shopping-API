@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shopping.Models.DTOs
+namespace Shopping.Models
 {
-    public class PostUserDto
+    public class AuthModal
     {
-        public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
     }
 }

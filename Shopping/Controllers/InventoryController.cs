@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Models;
@@ -12,6 +13,7 @@ using Shopping.Repo.IRepo;
 namespace Shopping.Controllers
 {
     // [Route("api/[controller]")]
+    [Authorize]
     [Route("api/v{version:apiVersion}/inventory")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
