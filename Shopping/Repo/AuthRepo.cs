@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using passwordHash = BCrypt.Net.BCrypt;
 
 namespace Shopping.Repo
 {
@@ -25,9 +26,9 @@ namespace Shopping.Repo
 
         public User Authenticate(string email, string password)
         {
-            var user = database.Users.SingleOrDefault(x => x.Email == email && x.Password == password);
+            var user = database.Users.SingleOrDefault(x => x.Email == email);
            //User not found
-            if(user == null)
+            if(user == null || !passwordHash.Verify(password, user.Password)) // 
             {
                 return null;
             }
@@ -68,7 +69,7 @@ namespace Shopping.Repo
             {
                 Name = name,
                 Email = email,
-                Password = password,
+                Password = passwordHash.HashPassword(password),
                 Role = "User"
             };
 
@@ -77,6 +78,12 @@ namespace Shopping.Repo
             userObject.Password = "";
             return userObject;
               
+        }
+
+
+        public User UpdatePassword(int id, string currentpassword, string newpassword)
+        {
+            throw new NotImplementedException();
         }
     }
 }

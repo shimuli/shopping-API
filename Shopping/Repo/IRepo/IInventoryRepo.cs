@@ -9,6 +9,8 @@ namespace Shopping.Repo.IRepo
     public interface IInventoryRepo
     {
         ICollection<InventoryList> GetInventorys();
+
+        ICollection<InventoryList> GetUserInventories(int userId);
         InventoryList GetInventory(int inventoryId);
         Inventory GetInventoryData(int inventoryId);
         Inventory GetInventorybyNameandId(int inventoryId, string name);

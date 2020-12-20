@@ -13,5 +13,7 @@ namespace Shopping.Repo.IRepo
         User Authenticate(string email, string password);
 
         User Register(string name, string email, string password);
+
+        User UpdatePassword(int id, string currentpassword, string newpassword);
     }
 }

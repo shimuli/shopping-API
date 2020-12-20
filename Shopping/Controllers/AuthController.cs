@@ -52,5 +52,28 @@ namespace Shopping.Controllers
             return Ok(user);
         }
 
+
+       /* [HttpPatch("updatepassword")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        [ProducesDefaultResponseType]
+        public IActionResult updatepassword(int userId, [FromBody] Updatepassword model)
+        {
+            if (userDto == null || userId != userDto.UserId)
+            {
+                return BadRequest(ModelState);
+            }
+            var userObj = mapper.Map<User>(userDto);
+            if (!userRepo.UpdateUser(userObj))
+            {
+                ModelState.AddModelError("", $"Something went wrong while updating the record {userObj.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+
+        }*/
+
+
     }
 }

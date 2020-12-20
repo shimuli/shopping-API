@@ -162,6 +162,34 @@ namespace Shopping.Controllers
             return Ok(objDto);
         }
 
+
+        /// <summary>
+        /// Get Data by user Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("GetUserInventory")]
+        [ProducesResponseType(200, Type = typeof(GetInventoryDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(200, Type = typeof(List<GetInventoryDto>))]
+        public ActionResult GetUserInventory(int userId)
+        {
+            var objList = inventoryRepo.GetUserInventories(userId);
+            var objDto = new List<GetInventoryDto>();
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            foreach (var ob in objList)
+            {
+                objDto.Add(mapper.Map<GetInventoryDto>(ob));
+            }
+
+            return Ok(objDto);
+        }
+
         /// <summary>
         /// Add an Item
         /// </summary>

@@ -53,6 +53,11 @@ namespace Shopping.Repo
             return database.ShoppingLists.FirstOrDefault(a => a.ItemId == itemId);
         }
 
+        public ICollection<ShoppingList> GetUserShopings(int userId)
+        {
+            return database.ShoppingLists.OrderBy(a => a.UserId).Where(c => c.UserId == userId).ToList();
+        }
+
         public bool Save()
         {
             return database.SaveChanges() >= 0 ? true : false;

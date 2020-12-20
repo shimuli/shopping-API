@@ -145,6 +145,33 @@ namespace Shopping.Controllers
         }
 
         /// <summary>
+        /// Get shopping list using user Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("GetUserShopings")]
+        [ProducesResponseType(200, Type = typeof(GetShopingDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(200, Type = typeof(List<GetShopingDto>))]
+        public ActionResult GetUserShopings(int userId)
+        {
+            var objList = shoppingRepo.GetUserShopings(userId);
+            var objDto = new List<GetShopingDto>();
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            foreach (var ob in objList)
+            {
+                objDto.Add(mapper.Map<GetShopingDto>(ob));
+            }
+
+            return Ok(objDto);
+        }
+
+        /// <summary>
         /// Create new Item
         /// </summary>
         /// <param name="postShopingDto"> Dta body</param>

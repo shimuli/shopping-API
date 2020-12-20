@@ -78,5 +78,10 @@ namespace Shopping.Repo
         {
             return database.Inventories.FirstOrDefault(a => a.InventoryId == inventoryId);
         }
+
+        public ICollection<InventoryList> GetUserInventories(int userId)
+        {
+            return database.InventoryLists.OrderBy(a => a.UserId).Where(c => c.UserId == userId).ToList();
+        }
     }
 }
