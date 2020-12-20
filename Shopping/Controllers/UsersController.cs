@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Models;
@@ -11,10 +12,12 @@ using Shopping.Repo.IRepo;
 
 namespace Shopping.Controllers
 {
-   // [Route("api/[controller]")]
-   [Route("api/v{version:apiVersion}/users")]
+    // [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
+    [Route("api/v{version:apiVersion}/users")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepo userRepo;

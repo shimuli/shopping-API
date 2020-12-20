@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Models;
@@ -12,6 +13,7 @@ using Shopping.Repo.IRepo;
 namespace Shopping.Controllers
 {
     // [Route("api/[controller]")]
+    [Authorize]
     [Route("api/v{version:apiVersion}/inventory")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -146,6 +148,34 @@ namespace Shopping.Controllers
         public ActionResult GetInventoryBydate(int userId, DateTime? startdate, DateTime enddate)
         {
             var objList = inventoryRepo.GetInventorybyDate(userId, startdate, enddate);
+            var objDto = new List<GetInventoryDto>();
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            foreach (var ob in objList)
+            {
+                objDto.Add(mapper.Map<GetInventoryDto>(ob));
+            }
+
+            return Ok(objDto);
+        }
+
+
+        /// <summary>
+        /// Get Data by user Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("GetUserInventory")]
+        [ProducesResponseType(200, Type = typeof(GetInventoryDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(200, Type = typeof(List<GetInventoryDto>))]
+        public ActionResult GetUserInventory(int userId)
+        {
+            var objList = inventoryRepo.GetUserInventories(userId);
             var objDto = new List<GetInventoryDto>();
 
             if (objList == null)

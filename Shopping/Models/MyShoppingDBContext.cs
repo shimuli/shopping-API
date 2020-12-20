@@ -105,7 +105,7 @@ namespace Shopping.Models
             modelBuilder.Entity<Shoping>(entity =>
             {
                 entity.HasKey(e => e.ItemId)
-                    .HasName("PK__Shoping__3FB403ACE3F680DE");
+                    .HasName("PK__Shoping__3FB403AC7B4AC307");
 
                 entity.ToTable("Shoping");
 
@@ -207,6 +207,8 @@ namespace Shopping.Models
                 entity.Property(e => e.Role)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Token).HasMaxLength(250);
             });
 
             OnModelCreatingPartial(modelBuilder);

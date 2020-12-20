@@ -9,6 +9,8 @@ namespace Shopping.Repo.IRepo
    public interface IShoppingRepo
     {
         ICollection<ShoppingList> GetShopings();
+
+        ICollection<ShoppingList> GetUserShopings(int userId);
         ShoppingList GetShopping(int itemId);
         Shoping GetShopingbyNameandId(int itemId, string name);
         ICollection<Shoping> GetShopingbyName(string name);

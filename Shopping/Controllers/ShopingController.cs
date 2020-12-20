@@ -13,9 +13,10 @@ using Shopping.Repo.IRepo;
 namespace Shopping.Controllers
 {
     //[Route("api/[controller]")]
+    [Authorize]
     [Route("api/v{version:apiVersion}/shopping")]
     [ApiController]
-    [Authorize]
+
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class ShopingController : ControllerBase
     {
@@ -129,6 +130,33 @@ namespace Shopping.Controllers
         public ActionResult GetShopingbyDate(int userId, DateTime? startdate, DateTime enddate)
         {
             var objList = shoppingRepo.GetShopingbyDate(userId, startdate, enddate);
+            var objDto = new List<GetShopingDto>();
+
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            foreach (var ob in objList)
+            {
+                objDto.Add(mapper.Map<GetShopingDto>(ob));
+            }
+
+            return Ok(objDto);
+        }
+
+        /// <summary>
+        /// Get shopping list using user Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("GetUserShopings")]
+        [ProducesResponseType(200, Type = typeof(GetShopingDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(200, Type = typeof(List<GetShopingDto>))]
+        public ActionResult GetUserShopings(int userId)
+        {
+            var objList = shoppingRepo.GetUserShopings(userId);
             var objDto = new List<GetShopingDto>();
 
             if (objList == null)

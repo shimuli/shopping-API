@@ -48,6 +48,13 @@
             <param name="enddate">End Date Format- 2020-12-21</param>
             <returns></returns>
         </member>
+        <member name="M:Shopping.Controllers.InventoryController.GetUserInventory(System.Int32)">
+            <summary>
+            Get Data by user Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Shopping.Controllers.InventoryController.CreateInventory(Shopping.Models.DTOs.PostInventoryDto)">
             <summary>
             Add an Item
@@ -106,6 +113,13 @@
             <param name="userId">Id of User</param>
             <param name="startdate">Start date Format: 2020-12-21</param>
             <param name="enddate">End date Format: 2020-12-21</param>
+            <returns></returns>
+        </member>
+        <member name="M:Shopping.Controllers.ShopingController.GetUserShopings(System.Int32)">
+            <summary>
+            Get shopping list using user Id
+            </summary>
+            <param name="userId"></param>
             <returns></returns>
         </member>
         <member name="M:Shopping.Controllers.ShopingController.CreateInventory(Shopping.Models.DTOs.PostShopingDto)">
