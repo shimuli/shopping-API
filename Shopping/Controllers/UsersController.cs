@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Models;
 using Shopping.Models.DTOs;
@@ -130,6 +131,8 @@ namespace Shopping.Controllers
 
         }
 
+
+     
         /// <summary>
         /// Delete user
         /// </summary>
