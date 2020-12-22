@@ -173,6 +173,14 @@
             <param name="userDto">Parameter to change</param>
             <returns></returns>
         </member>
+        <member name="M:Shopping.Controllers.UsersController.PartialUpdate(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Shopping.Models.DTOs.UpdateUserDto})">
+            <summary>
+            Update some user data
+            </summary>
+            <param name="id"></param>
+            <param name="patchDoc"></param>
+            <returns></returns>
+        </member>
         <member name="M:Shopping.Controllers.UsersController.DeleteUser(System.Int32)">
             <summary>
             Delete user

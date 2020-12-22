@@ -60,10 +60,8 @@ namespace Shopping.Controllers
         public IActionResult GetUser(int userId)
         {
             var obj = userRepo.GetUser(userId);
-            if (obj == null)
-            {
-                return NotFound();
-            }
+            if (obj == null) return NotFound();
+
             var objDto = mapper.Map<UsersDto>(obj);
 
             return Ok(objDto);
@@ -81,10 +79,8 @@ namespace Shopping.Controllers
         [ProducesDefaultResponseType]
         public IActionResult CreateUser([FromBody] PostUserDto postusersDto)
         {
-            if (postusersDto == null)
-            {
-                return BadRequest(ModelState);
-            }
+            if (postusersDto == null) return BadRequest(ModelState);
+
             if (userRepo.UserExist(postusersDto.Name))
             {
                 ModelState.AddModelError("", "User Exits!");
@@ -104,23 +100,21 @@ namespace Shopping.Controllers
             return CreatedAtRoute("GetUser", new { userId = userObj.UserId }, userObj);
         }
 
-        /// <summary>
+       /// <summary>
         /// Update user info
         /// </summary>
         /// <param name="userId"> User Id</param>
         /// <param name="userDto">Parameter to change</param>
         /// <returns></returns>
-        [HttpPatch("{userId:int}", Name = "UpdateUser")]
+        [HttpPatch("totalupdate/{userId:int}", Name = "UpdateUser")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesDefaultResponseType]
         public IActionResult UpdateUser(int userId, [FromBody] UsersDto userDto)
         {
-            if (userDto == null || userId != userDto.UserId)
-            {
-                return BadRequest(ModelState);
-            }
+            if (userDto == null || userId != userDto.UserId) return BadRequest(ModelState);
+
             var userObj = mapper.Map<User>(userDto);
             if (!userRepo.UpdateUser(userObj))
             {
@@ -132,7 +126,51 @@ namespace Shopping.Controllers
         }
 
 
-     
+        /// <summary>
+        /// Update some user data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="patchDoc"></param>
+        /// <returns></returns>
+        [HttpPatch("{id:int}", Name = "PartialUpdate")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public ActionResult<UsersDto> PartialUpdate(int id, [FromBody] JsonPatchDocument<UpdateUserDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            User existingEntity = userRepo.GetUser(id);
+
+            if (existingEntity == null)
+            {
+                return NotFound();
+            }
+
+            UpdateUserDto userUpdateDto = mapper.Map<UpdateUserDto>(existingEntity);
+            patchDoc.ApplyTo(userUpdateDto);
+
+            TryValidateModel(userUpdateDto);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            mapper.Map(userUpdateDto, existingEntity);
+            User updated = userRepo.Update(id, existingEntity);
+
+            if (!userRepo.Save())
+            {
+                throw new Exception("Updating a fooditem failed on save.");
+            }
+
+            return Ok(mapper.Map<UsersDto>(updated));
+        }
+
         /// <summary>
         /// Delete user
         /// </summary>
@@ -146,10 +184,7 @@ namespace Shopping.Controllers
         [ProducesDefaultResponseType]
         public IActionResult DeleteUser(int userId)
         {
-            if (!userRepo.UserExist(userId))
-            {
-                return NotFound();
-            }
+            if (!userRepo.UserExist(userId)) return NotFound();
             var userObj = userRepo.GetUser(userId);
             if (!userRepo.DeleteUser(userObj))
             {

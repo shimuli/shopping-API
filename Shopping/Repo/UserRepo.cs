@@ -58,6 +58,10 @@ namespace Shopping.Repo
             return Save();
         }
 
-        
+        public User Update(int id, User item)
+        {
+            database.Users.Update(item);
+            return item;
+        }
     }
 }
