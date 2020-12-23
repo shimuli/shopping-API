@@ -14,6 +14,7 @@ namespace Shopping.Mapper
         {
             CreateMap<User, UsersDto>().ReverseMap();
             CreateMap<User, PostUserDto>().ReverseMap();
+            CreateMap<User, UpdateUserDto>().ReverseMap(); 
 
             CreateMap<Inventory, InventoryDto>().ReverseMap();
             CreateMap<Inventory, PostInventoryDto>().ReverseMap();

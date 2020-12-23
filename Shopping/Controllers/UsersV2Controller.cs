@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Models;
 using Shopping.Models.DTOs;
@@ -42,6 +43,42 @@ namespace Shopping.Controllers
                 objDto.Add(mapper.Map<UsersDto>(obj));
             }
             return Ok(objDto);
+        }
+
+        [HttpPatch("{id:int}", Name = "PartialUpdate")]
+        public ActionResult<UsersDto> PartialUpdate(int id, [FromBody] JsonPatchDocument<UpdateUserDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            User existingEntity = userRepo.GetUser(id);
+
+            if (existingEntity == null)
+            {
+                return NotFound();
+            }
+
+            UpdateUserDto userUpdateDto = mapper.Map<UpdateUserDto>(existingEntity);
+            patchDoc.ApplyTo(userUpdateDto);
+
+            TryValidateModel(userUpdateDto);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            mapper.Map(userUpdateDto, existingEntity);
+            User updated = userRepo.Update(id, existingEntity);
+
+            if (!userRepo.Save())
+            {
+                throw new Exception("Updating a fooditem failed on save.");
+            }
+
+            return Ok(mapper.Map<UsersDto>(updated));
         }
     }
 }

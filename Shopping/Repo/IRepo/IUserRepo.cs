@@ -14,6 +14,9 @@ namespace Shopping.Repo.IRepo
         bool UserExist(int userId);
         bool CreateUser(User user);
         bool UpdateUser(User user);
+
+        //void Update(User user, string password = null);
+        User Update(int id, User item);
         bool DeleteUser(User user);
         bool Save();
 

@@ -83,31 +83,32 @@ namespace Shopping
 
 
 
-         /*   services.AddSwaggerGen(options => {
-                options.SwaggerDoc("ShoppingAPI",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Shopping API",
-                        Version = "1",
-                        Description = "Shopping App Web API",
-                        Contact= new Microsoft.OpenApi.Models.OpenApiContact()
-                        {
-                            Email = "shimulicedric@gmail.com",
-                            Name= "Shimuli Cedric",
-                            Url = new Uri("https://github.com/shimuli/shopping-API")
-                        },
-                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
-                        {
-                            Name = "MIT Licence",
-                            Url = new Uri("https://opensource.org/licenses/MIT")
-                        }
-                      
-                    });
-                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var cmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-                options.IncludeXmlComments(cmlCommentFullPath);
-            });*/
-            services.AddControllers();
+            /*   services.AddSwaggerGen(options => {
+                   options.SwaggerDoc("ShoppingAPI",
+                       new Microsoft.OpenApi.Models.OpenApiInfo()
+                       {
+                           Title = "Shopping API",
+                           Version = "1",
+                           Description = "Shopping App Web API",
+                           Contact= new Microsoft.OpenApi.Models.OpenApiContact()
+                           {
+                               Email = "shimulicedric@gmail.com",
+                               Name= "Shimuli Cedric",
+                               Url = new Uri("https://github.com/shimuli/shopping-API")
+                           },
+                           License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                           {
+                               Name = "MIT Licence",
+                               Url = new Uri("https://opensource.org/licenses/MIT")
+                           }
+
+                       });
+                   var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                   var cmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                   options.IncludeXmlComments(cmlCommentFullPath);
+               });*/
+            services.AddControllers()
+                .AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
