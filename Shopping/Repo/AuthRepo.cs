@@ -26,7 +26,7 @@ namespace Shopping.Repo
 
         public User Authenticate(string email, string password)
         {
-            var user = database.Users.SingleOrDefault(x => x.Email == email);
+            var user = database.Users.SingleOrDefault(useremail => useremail.Email == email);
            //User not found
             if(user == null || !passwordHash.Verify(password, user.Password)) // 
             {
