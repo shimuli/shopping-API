@@ -23,6 +23,7 @@ namespace Shopping.Mapper
             CreateMap<Shoping, PostShopingDto>().ReverseMap();
             CreateMap<Shoping, ShopingDto>().ReverseMap();
             CreateMap<ShoppingList, GetShopingDto>().ReverseMap();
+          
         }
     }
 }

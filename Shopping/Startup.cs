@@ -24,6 +24,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Shopping.Models.DTOs;
 
 namespace Shopping
 {
@@ -46,7 +47,9 @@ namespace Shopping
             services.AddScoped<IInventoryRepo, InventoryRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IShoppingRepo, ShopingRepo>();
+            services.AddScoped<IEmailRepo, EmailRepo>();
             services.AddScoped<IAuthRepo, AuthRepo>();
+            services.Configure<EmailOptionsDto>(Configuration.GetSection("Mailjet"));
             services.AddAutoMapper(typeof(ShoppingMappings));
             services.AddApiVersioning(options =>
             {
@@ -59,7 +62,6 @@ namespace Shopping
             services.AddSwaggerGen();
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);   
             services.AddAuthentication(x =>
@@ -78,10 +80,7 @@ namespace Shopping
                         ValidateIssuer = false,
                          ValidateAudience = false
                     };
-                })
-                ;
-
-
+                });
 
             /*   services.AddSwaggerGen(options => {
                    options.SwaggerDoc("ShoppingAPI",
